@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>K53 Exam Result</title>
+</head>
+<body>
+    <h1>K53 Exam Result</h1>
+    
+    <form action="AnswerK53Servlet" method="post">
+        <input type="hidden" name="action" value="answer">
+        
+        <c:forEach var="question" items="${questions}">
+            <div>
+                <p><strong>Question Description:</strong> ${question.question}</p>
+                
+                <p><strong>Possible Answers:</strong></p>
+                <ul>
+                    <c:forEach var="possibleAnswer" items="${question.possibleAnswers}">
+                        <li>${possibleAnswer.possibleAnswer}</li>
+                    </c:forEach>
+                </ul>
+                
+                <label for="selectedAnswer_${question.questionID}">Select Answer:</label>
+                <select id="selectedAnswer_${question.questionID}" name="selectedAnswer_${question.questionID}" required>
+                    <option value="" disabled selected>Select an answer</option>
+                    <c:forEach var="possibleAnswer" items="${question.possibleAnswers}">
+                        <option value="${possibleAnswer.possibleAnswer}">${possibleAnswer.possibleAnswer}</option>
+                    </c:forEach>
+                </select>
+                
+                <p>
+                    <strong>Correct Answer:</strong> ${question.answer.correctAnswer}<br>
+                    <strong>Mark:</strong> ${question.answer.correctlyAnswered ? question.mark : 0}
+                </p>
+            </div>
+        </c:forEach>
+        
+        <input type="submit" value="Submit Answers">
+    </form>
+</body>
+</html>
+
+</html>
+
